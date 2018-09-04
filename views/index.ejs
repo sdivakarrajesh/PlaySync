@@ -51,10 +51,10 @@
 
        </div>
        <div id ="player-controls" >
-         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:left;">
+         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:left;" onClick="player.playVideo();">
            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
          </button>
-         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:left;">
+         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:left;" onClick="player.pauseVideo();">
              <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
          </button>
          <div id = "progressBar" style="width :550px;height : 35px;margin-left :10px;float :left;">
@@ -77,6 +77,11 @@
 
     <script>
     progressBarLoop();
+    enableButtons();
+    function enableButtons(){
+      var playBtn = $()
+    }
+
      function progressBarLoop(){
        var progressBar = $("#progressBar");
        var progressSlider = $("#square");
