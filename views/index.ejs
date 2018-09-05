@@ -77,22 +77,26 @@
 
     <script>
     progressBarLoop();
-    enableButtons();
-    function enableButtons(){
-      var playBtn = $()
+    function seek(event){
+      var clickOffset = evt.pageX - $('#progressBar').offset().left;
+        console.log(clickOffset);
+
     }
 
      function progressBarLoop(){
        var progressBar = $("#progressBar");
        var progressSlider = $("#square");
-       //var progressBar= document.querySelector('#progressBar');
-       progressBar.click(function(){
-         console.log('clicked');
-         var divOffset = $(this).offset();
-
-           console.log(player.getCurrentTime());
-
-       })
+       progressBar.click(function(event){
+         if(player==null || progressBar == null){
+           return;
+         }
+         var original = $(this).offset().left;
+         var divOffset = event.pageX - $(this).offset().left;
+         var fraction = (divOffset)/original*100;
+         progressSlider.css("left",fraction.toString()+"%");
+         console.log(fraction*player.getDuration());
+         player.seekTo(fraction*player.getDuration()/100,true);
+       });
        setInterval(function(){
          if(player==null || progressBar==null){
            return;
