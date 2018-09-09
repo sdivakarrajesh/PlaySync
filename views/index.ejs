@@ -72,18 +72,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
-      socket.on('connect',function(){
-        console.log("Connected to server");
-        
 
-      });
-      socket.on('syncTime',function(){
-        console.log("Syncing playback");
-      });
-      socket.on('disconnect',function(){
-        console.log("Disconnected to server");
-      });
 
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -101,6 +90,16 @@
      function progressBarLoop(){
        var progressBar = $("#progressBar");
        var progressSlider = $("#square");
+       var socket = io();
+       socket.on('connect',function(){
+         console.log("Connected to server");
+       });
+       socket.on('syncTime',function(newTime){
+         console.log("Syncing playback");
+       });
+       socket.on('disconnect',function(){
+         console.log("Disconnected to server");
+       });
        progressBar.click(function(event){
          if(player==null || progressBar == null){
            return;
@@ -111,12 +110,17 @@
          progressSlider.css("left",fraction.toString()+"%");
          console.log(fraction*player.getDuration());
          player.seekTo(fraction*player.getDuration()/100,true);
+
+         socket.emit('newTime',{
+           newTime: fraction*player.getDuration()/100
+         });
+
        });
        setInterval(function(){
          if(player==null || progressBar==null){
            return;
          }
-         var fraction = player.getCurrentTime()/player.getDuration()*100;
+         var fraction = (player.getCurrentTime())/player.getDuration()*100;
          progressSlider.css("left",fraction.toString()+"%");
        });
 

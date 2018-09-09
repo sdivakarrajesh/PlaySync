@@ -21,7 +21,19 @@ app
 var currentTime = 0;
 io.on('connection',function(socket){
     console.log("New user connected");
-    socket.emit('syncTime',{
-      console.log("syncing time");
-  });
+    socket.on('disconnect',function(){
+        console.log("A User disconnected")
+    });
+    socket.on('newTime',function(syncTimeReceived){
+      if(syncTimeReceived.newTime>0){
+        console.log("Setting new time across all users");
+        currentTime = syncTimeReceived.newTime;
+        socket.emit('syncTime',{
+          time: currentTime
+        });
+
+      }
+
+    });
+
 });
