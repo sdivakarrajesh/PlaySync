@@ -95,7 +95,7 @@
          console.log("Connected to server");
        });
        socket.on('syncTime',function(newTime){
-         player.seekTo(newTime.currentTime);
+         player.seekTo(newTime.currentTime,true);
        });
        socket.on('disconnect',function(){
          console.log("Disconnected to server");
