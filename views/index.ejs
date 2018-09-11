@@ -95,7 +95,8 @@
          console.log("Connected to server");
        });
        socket.on('syncTime',function(newTime){
-         player.seekTo(newTime.currentTime,true);
+         console.log(`New Time received ${newTime.time}`);
+         player.seekTo(newTime.time,true);
        });
        socket.on('disconnect',function(){
          console.log("Disconnected to server");
@@ -107,12 +108,14 @@
          var original = $(this).offset().left;
          var divOffset = event.pageX - $(this).offset().left;
          var fraction = (divOffset)/original*100;
+         console.log(`Fraction ${fraction}`);
          progressSlider.css("left",fraction.toString()+"%");
-         console.log(fraction*player.getDuration());
-         player.seekTo(fraction*player.getDuration()/100,true);
+         var seekNewTime = fraction*player.getDuration()/100;
+         console.log(`seeking to ${seekNewTime}`);
+         player.seekTo(seekNewTime,true);
 
          socket.emit('newTime',{
-           newTime: fraction*player.getDuration()/100
+           newTime: seekNewTime
          });
 
        });

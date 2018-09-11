@@ -28,7 +28,7 @@ io.on('connection',function(socket){
       if(syncTimeReceived.newTime>0){
         console.log("Setting new time across all users");
         currentTime = syncTimeReceived.newTime;
-        socket.emit('syncTime',{
+        io.emit('syncTime',{
           time: currentTime
         });
 
