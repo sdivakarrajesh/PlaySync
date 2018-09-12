@@ -2,7 +2,7 @@
   "name": "PlaySync",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "ejs": "^2.5.9",
     "express": "^4.16.3",
@@ -16,7 +16,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node index.js",
+
+    "start": "nodemon server/server.js",
     "test": "node test.js"
   },
   "repository": {

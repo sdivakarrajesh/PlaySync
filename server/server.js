@@ -4,7 +4,7 @@ const PORT = process.env.PORT || 5000
 const http = require('http')
 const socketIO = require('socket.io')
 
-const publicPath = path.join(__dirname, 'public');
+const publicPath = path.join(__dirname,'../public');
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
@@ -14,7 +14,7 @@ server.listen(PORT, () => {
 });
 
 app
-  .set('views', path.join(__dirname, 'views'))
+  .set('views', path.join(__dirname, '../views'))
   .set('view engine', 'ejs')
   .get('/', (req, res) => res.render('index'))
 
