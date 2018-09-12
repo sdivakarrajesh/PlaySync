@@ -103,12 +103,13 @@
          if(player==null || progressBar == null){
            return;
          }
-         var original = $(this).offset().left;
+
+        
          var divOffset = event.pageX - $(this).offset().left;
-         var fraction = (divOffset)/original*100;
+         var fraction = (divOffset)/550;//550=> actual width of the progressbar
          console.log(`Fraction ${fraction}`);
          progressSlider.css("left",fraction.toString()+"%");
-         var seekNewTime = fraction*player.getDuration()/100;
+         var seekNewTime = fraction*player.getDuration();
          console.log(`seeking to ${seekNewTime}`);
          player.seekTo(seekNewTime,true);
 
@@ -166,7 +167,7 @@
       var done = false;
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 6000);
+          //setTimeout(stopVideo, 6000);
           done = true;
         }
       }
