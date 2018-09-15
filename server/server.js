@@ -31,9 +31,17 @@ io.on('connection',function(socket){
         io.emit('syncTime',{
           time: currentTime
         });
-
       }
+    });
 
+    socket.on('play',function(){
+      console.log("Playing video across the users");
+      io.emit('play');
+    });
+
+    socket.on('pause',function(){
+      console.log("Pausing video across the users");
+      io.emit('pause');
     });
 
 });

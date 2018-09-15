@@ -41,18 +41,16 @@
         </div><!--/.nav-collapse -->
       </div>
     </nav>
-
+<script src="/socket.io/socket.io.js"></script>
     <div class="container">
       <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
        <div id="player">
-
-
        </div>
        <div id ="player-controls" >
-         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:left;" onClick="player.playVideo();">
+         <button id="playbtn" type="button" class="btn btn-default" aria-label="Left Align" style="float:left;" >
            <span class="glyphicon glyphicon-play" aria-hidden="true"></span>
          </button>
-         <button type="button" class="btn btn-default" aria-label="Left Align" style="float:left;" onClick="player.pauseVideo();">
+         <button id="pausebtn"type="button" class="btn btn-default" aria-label="Left Align" style="float:left;">
              <span class="glyphicon glyphicon-pause" aria-hidden="true"></span>
          </button>
          <div id = "progressBar" style="width :550px;height : 35px;margin-left :10px;float :left;">
@@ -68,7 +66,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/socket.io/socket.io.js"></script>
+
     <script>
 
 
@@ -86,9 +84,20 @@
     }
 
      function progressBarLoop(){
+       var socket = io();
+       var playbtn = $("#playbtn");
+       playbtn.click(function(){
+          player.playVideo();
+          socket.emit('play');
+       });
+       var pausebtn = $("#pausebtn");
+       pausebtn.click(function(){
+          player.pauseVideo();
+          socket.emit('pause');
+       });
        var progressBar = $("#progressBar");
        var progressSlider = $("#square");
-       var socket = io();
+
        socket.on('connect',function(){
          console.log("Connected to server");
        });
@@ -96,15 +105,24 @@
          console.log(`New Time received ${newTime.time}`);
          player.seekTo(newTime.time,true);
        });
+       socket.on('play',function(newTime){
+         console.log("Playing");
+         player.playVideo();
+       });
+       socket.on('pause',function(newTime){
+         console.log("Pausing");
+         player.pauseVideo();
+       });
        socket.on('disconnect',function(){
          console.log("Disconnected to server");
        });
+
        progressBar.click(function(event){
          if(player==null || progressBar == null){
            return;
          }
 
-        
+
          var divOffset = event.pageX - $(this).offset().left;
          var fraction = (divOffset)/550;//550=> actual width of the progressbar
          console.log(`Fraction ${fraction}`);
@@ -174,6 +192,7 @@
       function stopVideo() {
         player.stopVideo();
       }
+
     </script>
 
 
