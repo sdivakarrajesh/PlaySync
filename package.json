@@ -2,7 +2,7 @@
   "name": "PlaySync",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "server/server.js",
   "dependencies": {
     "ejs": "^2.5.9",
     "express": "^4.16.3",
