@@ -76,6 +76,7 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script>
+    var play=false;
     progressBarLoop();
     function seek(event){
       var clickOffset = evt.pageX - $('#progressBar').offset().left;
@@ -87,11 +88,15 @@
        var socket = io();
        var playbtn = $("#playbtn");
        playbtn.click(function(){
+         $('#playbtn').prop('disabled', true);
+         $('#pausebtn').prop('disabled', false);
           player.playVideo();
           socket.emit('play');
        });
        var pausebtn = $("#pausebtn");
        pausebtn.click(function(){
+           $('#pausebtn').prop('disabled', true);
+           $('#playbtn').prop('disabled', false);
           player.pauseVideo();
           socket.emit('pause');
        });

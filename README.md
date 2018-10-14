@@ -1,6 +1,6 @@
 # PlaySync
 
-A WebApp that allow users to sync their YouTube video playback
+A Web Application that allow users to sync their YouTube video playback across users in a local network using socket communication.
 
 ## Instructions
 
@@ -14,7 +14,7 @@ npm install
 npm start
 ```
 
-The App should live on localhost:5000
+The App should live on localhost:5000/
 
 ## Deploying it on Heroku
 
