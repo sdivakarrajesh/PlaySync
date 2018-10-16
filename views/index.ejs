@@ -66,17 +66,15 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-
-    <script>
-
-
-    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')</script>
     <script src="js/bootstrap.min.js"></script>
 
     <script>
     var play=false;
+    var playbtnjs = document.getElementById("playbtn");
+    var pausebtnjs = document.getElementById("pausebtn");
+    playbtnjs.style.display = "none";
     progressBarLoop();
     function seek(event){
       var clickOffset = evt.pageX - $('#progressBar').offset().left;
@@ -87,7 +85,10 @@
      function progressBarLoop(){
        var socket = io();
        var playbtn = $("#playbtn");
+       
        playbtn.click(function(){
+         playbtnjs.style.display = "none";
+         pausebtnjs.style.display = "block";
          $('#playbtn').prop('disabled', true);
          $('#pausebtn').prop('disabled', false);
           player.playVideo();
@@ -95,6 +96,8 @@
        });
        var pausebtn = $("#pausebtn");
        pausebtn.click(function(){
+         pausebtnjs.style.display = "none";
+         playbtnjs.style.display = "block";
            $('#pausebtn').prop('disabled', true);
            $('#playbtn').prop('disabled', false);
           player.pauseVideo();
