@@ -37,3 +37,6 @@ body {
 .newChannel form input[type="url"]:focus, .newChannel form input[type="url"]:active, .existingChannel form input[type="text"]:focus, .existingChannel form input[type="text"]:active {
      border-color: #cccccc;
    }
+.existingChannel form input[type="text"]:focus, .existingChannel form input[type="text"]:active {
+  border-color: #cccccc;
+}
