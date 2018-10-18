@@ -54,6 +54,9 @@
           <div id = "line" style="border-style:solid; border-width:1px; position:relative; top:50%"></div>
           <div id = "square" style="width:10px; height:15px;top:20%; border-style:solid; position:relative; border-width:1px;background: #333"></div>
          </div>
+        <button id="fullscreenToggle" type="button" class="btn btn-default" aria-label="Left Align" style="float:left;">
+          <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+        </button>
        </div>
 
 
@@ -67,8 +70,20 @@
             <h4 class="modal-title" id="myModalLabel">Choose</h4>
           </div>
           <div class="modal-body">
-            <h3>Join an Existing Channel</h3>
-            <h3>Create a new Channel</h3>
+            <div class="existingChannel">
+              <h3>Join an Existing Channel</h3>
+              <form action="">
+                <input type="text" placeholder="Channel" />
+              </form>
+            </div>
+            
+            <div class="newChannel">
+              <h3>Create a new Channel</h3>
+              <form action="">
+                <input type="url" placeholder="URL of the YouTube Video" />
+              </form>
+            </div>
+            
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal" id="closeBtn">Close</button>
@@ -89,7 +104,7 @@
     <script src="js/bootstrap.min.js"></script>
 
     <script>
-
+    var iframe;
     var play=1;
     var playPauseBtn = document.getElementById("playPauseBtn");
     $('#basicModal').modal('show');
@@ -100,9 +115,15 @@
         playPauseBtn.children[0].className= "glyphicon glyphicon-pause"
         
     });
-
-   
-    
+    var fullscreenToggle = $("#fullscreenToggle");
+    fullscreenToggle.click(function(){
+      player.playVideo();
+      var requestFullScreen = iframe.requestFullScreen || iframe.mozRequestFullScreen || iframe.webkitRequestFullScreen;
+      console.log(requestFullScreen);
+      if (requestFullScreen) {
+        requestFullScreen.bind(iframe)();
+      }
+    });
     progressBarLoop();
     function seek(event){
       var clickOffset = evt.pageX - $('#progressBar').offset().left;
@@ -119,17 +140,18 @@
            play = 0;
            player.pauseVideo();
            socket.emit('pause');
-           console.log("pausing");
+           console.log("current Time : "+player.getCurrentTime());
            playPauseBtn.children[0].className = "glyphicon glyphicon-play"
+           socket.emit('newTime', {
+             newTime: player.getCurrentTime()
+           });
          }
          else {
            play = 1;
            player.playVideo();
            socket.emit('play');
-           console.log("playing");
            playPauseBtn.children[0].className = "glyphicon glyphicon-pause"
          }
-
        });
        var progressBar = $("#progressBar");
        var progressSlider = $("#square");
@@ -158,7 +180,6 @@
            return;
          }
 
-
          var divOffset = event.pageX - $(this).offset().left;
          var fraction = (divOffset)/550;//550=> actual width of the progressbar
          console.log(`Fraction ${fraction}`);
@@ -166,7 +187,6 @@
          var seekNewTime = fraction*player.getDuration();
          console.log(`seeking to ${seekNewTime}`);
          player.seekTo(seekNewTime,true);
-
          socket.emit('newTime',{
            newTime: seekNewTime
          });
@@ -182,9 +202,6 @@
 
      }
 
-
-    </script>
-    <script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
 
@@ -216,7 +233,9 @@
         event.target.pauseVideo();
         var playPauseBtn = document.getElementById("playPauseBtn");
         console.log(playPauseBtn.children[0]);
-        playPauseBtn.children[0].className="glyphicon glyphicon-play"
+        playPauseBtn.children[0].className="glyphicon glyphicon-play";
+        var $ = document.querySelector.bind(document);
+        iframe = $('#player');
       }
 
       // 5. The API calls this function when the player's state changes.

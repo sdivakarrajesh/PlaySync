@@ -13,3 +13,27 @@ body {
 
   margin-left:250px;
 }
+#fullscreenToggle{
+  border: none;
+}
+.newChannel form input,.existingChannel form input{
+  display: inline-block;
+  width: 500px;
+  padding: 0 20px;
+  line-height: 50px;
+  height: 50px;
+  margin: 20px;
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  border-bottom-width: 3px;
+  border-radius: 5px;
+  outline: 0;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.newChannel form input:not(:last-child) {
+  margin-bottom: 20px;
+}
+.newChannel form input[type="url"]:focus, .newChannel form input[type="url"]:active, .existingChannel form input[type="text"]:focus, .existingChannel form input[type="text"]:active {
+     border-color: #cccccc;
+   }
