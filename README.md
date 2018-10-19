@@ -1,14 +1,14 @@
 # PlaySync
 
-A Web Application that allow users to sync their YouTube video playback across users in a local network using socket communication.
+A Web Application that allow users to sync their YouTube video playback using websocket. The users can join an already existing channel with the other users or create a new channel and add the video they wish to watch.
 
-## Instructions
+# Instructions
 
 ## Running Locally
-Install Node.js
-Create an account in Heroku and make sure that Heroku CLI is installed
-Clone the repository and browse into it using PowerShell(for windows) or Terminal(for Mac or Linux)
-Then
+- Install Node.js
+- Create an account in Heroku and make sure that Heroku CLI is installed
+- Clone the repository and browse into it using PowerShell(for windows) or Terminal(for Mac or Linux)
+- Then,
 ```
 npm install
 npm start
@@ -16,7 +16,7 @@ npm start
 
 The App should live on localhost:5000/
 
-## Deploying it on Heroku
+## Deploying it to Heroku
 
 In the Terminal or PowerShell
 ```
