@@ -1,8 +1,10 @@
 body {
+  height: 100vh;
   padding-top: 100px;
-  background-color: #f2395a;
-  color: #f2395a;
+  background-image: -webkit-linear-gradient(130deg, #F74287 5%, #4889FD 90%);
+  background-image: linear-gradient(130deg, #F74287 5%, #4889FD 90%);
 }
+/*1FC4B1 1DABDD*/
 .starter-template {
   padding: 40px 15px;
   text-align: center;
@@ -19,9 +21,6 @@ body {
   border: none;
 }
 
-   .register-wrapper {
-     background-color: #f2395a;
-   }
    .register-wrapper * {
      box-sizing: border-box;
    }
@@ -52,18 +51,12 @@ body {
      display: inline-block;
      padding: 0 20px;
      font-size: 1rem;
-     background-color: #f2395a;
+     background-color: #F74287;
      background-size: 100%;
-
-     background-size: 20px 20px, 100% 100%;
-     border: 1px solid #f02146;
-     border-bottom-width: 3px;
+     
      color: white;
      outline: none;
      cursor: pointer;
-   }
-   .register-wrapper form input[type="submit"]:hover {
-     background-size: 40px 40px;
    }
    .register-title {
      font-size: 1.5em;
