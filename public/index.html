@@ -17,7 +17,7 @@
                 <button id="create">Create Channel</button>
                 <button id="join">Join Channel</button>
         
-                <div class="register-content" align="center">
+                <div align="center" id="join-channel">
                     <br><br>
                     <h3 class="register-title">JOIN A CHANNEL</h3>
                     <form action="/channel.html">
@@ -26,11 +26,45 @@
                         <input type="submit" value="Join" />
                     </form>
                 </div>
+                <div align="center" id="create-channel">
+                    <br><br>
+                    <h3 class="create-title">CREATE NEW CHANNEL</h3>
+                    <form action="/channel.html">
+                        <input type="text" placeholder="Your Name" name="admin_name" />
+                        <input type="text" placeholder="New Channel Name" name="new_channel" />
+                        <input type="text" placeholder="YouTube Video URL" name="video_url" />
+                        <input type="submit" value="Create" />
+                    </form>
+                </div>
                 
             </div>
         </div>
+
       
     </div>>
-     
+     <script>
+         createDiv = document.getElementById("create-channel")
+         joinDiv = document.getElementById("join-channel")
+
+         joinDiv.style.display = "block"
+         createDiv.style.display = "none"
+         
+         loginBtn = document.getElementById("join")
+         createBtn = document.getElementById("create")
+         
+    
+         loginBtn.addEventListener('click', function (event) {
+            createDiv.style.display = "none"
+            joinDiv.style.display = "block"
+            createBtn.style.backgroundColor = 'rgb(248, 246, 246)';
+            loginBtn.style.backgroundColor = "white"
+        });
+        createBtn.addEventListener("click",function(event){
+            joinDiv.style.display = "none"
+            createDiv.style.display = "block"
+            loginBtn.style.backgroundColor = 'rgb(248, 246, 246)';
+            createBtn.style.backgroundColor = "white"
+        })
+     </script>
 </body>
 </html>
