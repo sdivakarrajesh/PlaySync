@@ -1,3 +1,7 @@
+# Note
+
+The App is currently under maintenance as I am adding new features, so it might not work as expected. It will be live with the new features soon!
+
 # PlaySync
 
 A Web Application that allow users to sync their YouTube video playback using websocket. The users can join an already existing channel with the other users or create a new channel and add the video they wish to watch.
@@ -16,16 +20,17 @@ npm start
 
 The App should live on localhost:5000/
 
-## Deploying it to Heroku
+## Usage 
 
-In the Terminal or PowerShell
-```
-heroku create
-git push heroku master
-heroku open
-```
-or
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+Head over to [Heroku](http://youtube-play-sync.herokuapp.com) where I have deployed this application
+
+## Usage 
+
+Create a channel with the YouTube video URL and ask a friend to join the same channel with the channel name.
+
+Whenever changes in the playback is detected, the playback time is sent over to the server through a websocket connection and the server broadcasts the time to all other users in the same channel.
+
+You can take a look at the websocket data by using the Chrome DevTools
 
 # License
 
