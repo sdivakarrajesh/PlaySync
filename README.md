@@ -1,7 +1,3 @@
-# Note
-
-The App is currently under maintenance as I am adding new features, so it might not work as expected. It will be live with the new features soon!
-
 # PlaySync
 
 A Web Application that allow users to sync their YouTube video playback using websocket. The users can join an already existing channel with the other users or create a new channel and add the video they wish to watch.
