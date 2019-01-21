@@ -6,7 +6,9 @@ const socketIO = require('socket.io')
 
 
 const { Users } = require('./utils/users');
+const { Channel } = require('./utils/channel')
 var users = new Users();
+var channels = new Channel();
 const publicPath = path.join(__dirname,'../public');
 var app = express();
 var server = http.createServer(app);
@@ -22,17 +24,30 @@ var currentTime = 0;
 io.on('connection',function(socket){
 
   socket.on('join', (params, callback) => {
+
     socket.join(params.channel);
     users.removeUser(socket.id);
+    console.log(`${params.video_url}`);
+    if(params.video_url){
+      var url;
+      url = params.video_url.toString();
+      url = url.substring(url.indexOf('=')+1);
+
+      console.log("creating channel");
+      channels.removeChannel(params.channel)
+      channels.addChannel(params.channel,url);
+    }
     users.addUser(socket.id, params.name, params.channel);
     io.to(params.channel).emit('updateUserList', users.getUserList(params.channel));
-    callback();
+    console.log(`channel url ${channels.getChannelVideoUrl(params.channel)}`);
+    io.to(socket.id).emit('getVideoId', channels.getChannelVideoUrl(params.channel));
+    callback(null);
   });
 
 
     console.log("New user connected");
     socket.on('disconnect',function(){
-        console.log("A User disconnected")
+        console.log("A User disconnected");
     });
     socket.on('newTime',function(syncTimeReceived){
       var user = users.getUser(socket.id);

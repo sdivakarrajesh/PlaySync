@@ -2,6 +2,7 @@ var iframe;
 var play = 1;
 var playPauseBtn = document.getElementById("playPauseBtn");
 var player;
+var syncVideoId;
 
 play = 1;
 playPauseBtn.children[0].className = "glyphicon glyphicon-pause"
@@ -52,6 +53,7 @@ function progressBarLoop() {
         var params = jQuery.deparam(window.location.search);
         console.log(params);
         socket.emit('join', params, function (err) {
+            
             if (err) {
                 alert(err);
                 window.location.href = '/';
@@ -59,6 +61,14 @@ function progressBarLoop() {
         });
 
     });
+    socket.on('getVideoId', function (videoId){
+        syncVideoId = videoId ? videoId : null;
+        //XZmGGAbHqa0
+        console.log(`sync video id ${syncVideoId}`);
+        console.log("creating video player");
+        createYoutubePlayer();
+
+    })
     socket.on('syncTime', function (newTime) {
         console.log(`New Time received ${newTime.time}`);
         player.seekTo(newTime.time, true);
@@ -74,7 +84,7 @@ function progressBarLoop() {
         playPauseBtn.children[0].className = "glyphicon glyphicon-play"
     });
     socket.on('disconnect', function () {
-        console.log("Disconnected to server");
+        console.log("Disconnected from the server");
     });
 
     socket.on('updateUserList', function (users) {
@@ -107,21 +117,27 @@ function progressBarLoop() {
     });
 
 }
+function createYoutubePlayer(){
+    console.log("executing api code");
 
-// 2. This code loads the IFrame Player API code asynchronously.
-var tag = document.createElement('script');
+    // 2. This code loads the IFrame Player API code asynchronously.
+    var tag = document.createElement('script');
 
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+
+}
 
 // 3. This function creates an <iframe> (and YouTube player)
 //    after the API code downloads.
 function onYouTubeIframeAPIReady() {
+    console.log(`creating player with id ${syncVideoId}`);
     player = new YT.Player('player', {
         height: '480',
         width: '640',
-        videoId: 'XZmGGAbHqa0',
+        videoId: syncVideoId,
         playerVars: { 'controls': 0 },
         events: {
             'onReady': onPlayerReady,
