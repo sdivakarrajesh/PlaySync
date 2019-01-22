@@ -55,7 +55,7 @@ function progressBarLoop() {
         socket.emit('join', params, function (err) {
             
             if (err) {
-                alert(err);
+                alert(err.error);
                 window.location.href = '/';
             }
         });

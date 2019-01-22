@@ -39,9 +39,16 @@ io.on('connection',function(socket){
     }
     users.addUser(socket.id, params.name, params.channel);
     io.to(params.channel).emit('updateUserList', users.getUserList(params.channel));
-    console.log(`channel url ${channels.getChannelVideoUrl(params.channel)}`);
-    io.to(socket.id).emit('getVideoId', channels.getChannelVideoUrl(params.channel));
-    callback(null);
+    let channelurl = channels.getChannelVideoUrl(params.channel);
+    console.log(`channel url ${channelurl}`);
+    io.to(socket.id).emit('getVideoId', channelurl);
+    if(channelurl){
+      callback(null);
+    }
+    else{
+      callback({error:'Channel does not exist'});
+    }
+    
   });
 
 

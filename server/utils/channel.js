@@ -18,7 +18,13 @@ class Channel{
         return channel;
     }
     getChannelVideoUrl(name){
-        return this.channels.filter((channel) => channel.name === name)[0].url;
+        var channel = this.channels.filter((channel) => channel.name === name)[0];
+        if(channel){
+            return channel.url;
+        }
+        else{
+            return null;
+        }
     }
     getChannel(name){
         return this.channels.filter((channel) => channel.name === name)[0];
