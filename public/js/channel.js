@@ -33,7 +33,6 @@ function progressBarLoop() {
             player.pauseVideo();
             socket.emit('pause');
             console.log("current Time : " + player.getCurrentTime());
-            playPauseBtn.children[0].className = "glyphicon glyphicon-play"
             socket.emit('newTime', {
                 newTime: player.getCurrentTime()
             });
@@ -42,7 +41,6 @@ function progressBarLoop() {
             play = 1;
             player.playVideo();
             socket.emit('play');
-            playPauseBtn.children[0].className = "glyphicon glyphicon-pause"
         }
     });
     var progressBar = $("#progressBar");
@@ -76,12 +74,12 @@ function progressBarLoop() {
     socket.on('play', function (newTime) {
         console.log("Playing");
         player.playVideo();
-        playPauseBtn.children[0].className = "glyphicon glyphicon-pause"
+        
     });
     socket.on('pause', function (newTime) {
         console.log("Pausing");
         player.pauseVideo();
-        playPauseBtn.children[0].className = "glyphicon glyphicon-play"
+        
     });
     socket.on('disconnect', function () {
         console.log("Disconnected from the server");
@@ -150,8 +148,8 @@ function onYouTubeIframeAPIReady() {
 
 // 4. The API will call this function when the video player is ready.
 function onPlayerReady(event) {
-    //event.target.playVideo();
-    event.target.pauseVideo();
+    event.target.playVideo();
+    //event.target.pauseVideo();
     var playPauseBtn = document.getElementById("playPauseBtn");
     console.log(playPauseBtn.children[0]);
     playPauseBtn.children[0].className = "glyphicon glyphicon-play";
@@ -167,6 +165,12 @@ function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING && !done) {
         //setTimeout(stopVideo, 6000);
         done = true;
+    }
+    if(event.data == YT.PlayerState.PLAYING){
+        playPauseBtn.children[0].className = "glyphicon glyphicon-pause"
+    }
+    else if(event.data == YT.PlayerState.PAUSED){
+        playPauseBtn.children[0].className = "glyphicon glyphicon-play"
     }
 }
 function stopVideo() {
