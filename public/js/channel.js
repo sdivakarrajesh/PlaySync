@@ -95,7 +95,10 @@ function progressBarLoop() {
         }
 
         var divOffset = event.pageX - $(this).offset().left;
-        var fraction = (divOffset) / 550;//550=> actual width of the progressbar
+        console.log(progressBar)
+        console.log(progressBar[0].clientWidth)
+        console.log(divOffset)
+        var fraction = (divOffset) / progressBar[0].clientWidth;//550=> actual width of the progressbar
         console.log(`Fraction ${fraction}`);
         progressSlider.css("left", fraction.toString() + "%");
         var seekNewTime = fraction * player.getDuration();

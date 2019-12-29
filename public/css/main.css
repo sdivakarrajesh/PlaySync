@@ -1,42 +1,110 @@
 body {
-  padding-top: 100px;
+    padding-top: 100px;
 }
+
 .starter-template {
-  padding: 40px 15px;
-  text-align: center;
+    padding: 40px 15px;
+    text-align: center;
 }
+
+#player-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px;
+    height: 0;
+    overflow: hidden;
+}
+
+.auto-resizable-iframe {
+    max-width: 420px;
+    margin: 0px auto;
+}
+
+.auto-resizable-iframe>div {
+    position: relative;
+    padding-bottom: 75%;
+    height: 0px;
+}
+
+.auto-resizable-iframe iframe {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
 #player {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 
-  margin-left: 250px;
+#player-controls {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    bottom: 0px;
+    padding: 0px;
 }
-#player-controls{
 
-  margin-left:250px;
+.content-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
-#fullscreenToggle{
-  border: none;
+
+#playPauseBtn,
+#progessBar {
+    /* display: inline-block; */
+    float: left;
 }
-.newChannel form input,.existingChannel form input{
-  display: inline-block;
-  width: 500px;
-  padding: 0 20px;
-  line-height: 50px;
-  height: 50px;
-  margin: 20px;
-  background-color: white;
-  border: 1px solid #e6e6e6;
-  border-bottom-width: 3px;
-  border-radius: 5px;
-  outline: 0;
-  -webkit-transition: all 0.3s ease;
-  transition: all 0.3s ease;
+
+#fullscreenToggle {
+    border: none;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
+
+.newChannel form input,
+.existingChannel form input {
+    display: inline-block;
+    width: 500px;
+    padding: 0 20px;
+    line-height: 50px;
+    height: 50px;
+    margin: 20px;
+    background-color: white;
+    border: 1px solid #e6e6e6;
+    border-bottom-width: 3px;
+    border-radius: 5px;
+    outline: 0;
+    -webkit-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
 .newChannel form input:not(:last-child) {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
-.newChannel form input[type="url"]:focus, .newChannel form input[type="url"]:active, .existingChannel form input[type="text"]:focus, .existingChannel form input[type="text"]:active {
-     border-color: #cccccc;
-   }
-.existingChannel form input[type="text"]:focus, .existingChannel form input[type="text"]:active {
-  border-color: #cccccc;
+
+.newChannel form input[type="url"]:focus,
+.newChannel form input[type="url"]:active,
+.existingChannel form input[type="text"]:focus,
+.existingChannel form input[type="text"]:active {
+    border-color: #cccccc;
+}
+
+.existingChannel form input[type="text"]:focus,
+.existingChannel form input[type="text"]:active {
+    border-color: #cccccc;
+}
+
+@media screen and (max-width:768px) {
+    .col-md-6 {
+        width: 100%;
+    }
 }
